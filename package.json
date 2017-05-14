@@ -1,0 +1,12 @@
+{
+  "name": "ryba-env-ambari",
+  "version": "0.0.0",
+  "description": "Ryba environnment to deploy an Apache Ambari based cluster",
+  "dependencies": {
+    "coffee-script": "~1.12.5",
+    "nikita": "git+https://github.com/adaltas/node-nikita.git#master",
+    "masson": "git+https://github.com/adaltas/node-masson.git#master",
+    "ryba": "git+https://github.com/ryba-io/ryba.git#master",
+    "ryba-repos": "~0.0.3"
+  }
+}
