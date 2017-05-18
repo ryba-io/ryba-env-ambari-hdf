@@ -140,11 +140,14 @@ module.exports =
             'ryba': 'HADOOP.RYBA'
           realms:
             'HADOOP.RYBA':
-              kadmin_principal: 'wdavidw/admin@HADOOP.RYBA'
+              kadmin_principal: 'admin/admin@HADOOP.RYBA'
               kadmin_password: 'test'
               principals: [
                 principal: 'krbtgt/HADOOP.RYBA@USERS.RYBA'
                 password: 'test'
+              ,
+                principal: 'hdfs@HADOOP.RYBA'
+                password: 'hdfs123'
               ]
         kdc_conf:
           realms:
