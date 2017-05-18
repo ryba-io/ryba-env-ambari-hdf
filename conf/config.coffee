@@ -57,6 +57,7 @@ module.exports =
           'tree': true, 'git': true, 'htop': false, 'vim': true, 
           'bash-completion': true, 'unzip': true,
           'net-tools': true # Install netstat
+          # 'bind-utils': true # Install dig
     'masson/core/ssh':
       constraints: tags: 'environment': 'dev'
       config: ssh:
@@ -68,7 +69,7 @@ module.exports =
     'masson/core/ntp':
       constraints: tags: 'environment': 'dev'
       config: ntp:
-        servers: ['master_03.ambari.ryba']
+        servers: ['master03.ambari.ryba']
     'masson/core/network':
       constraints: tags: 'environment': 'dev'
       config: network:
@@ -82,6 +83,10 @@ module.exports =
         #   #nameserver 10.10.10.24
         #   nameserver 10.0.2.3
         #   """
+    'masson/core/ssl':
+      constraints: tags: 'environment': 'dev'
+      config: ssl:
+        'cacert': "#{__dirname}/certs/cacert.pem"
     'masson/core/iptables':
       constraints: tags: 'environment': 'dev'
       config: iptables:
@@ -92,7 +97,7 @@ module.exports =
           # { chain: 'INPUT', jump: 'ACCEPT', source: "10.10.10.0/24", comment: 'Local Network' }
         ]
     'masson/core/openldap_server':
-      constraints: nodes: ['master_02', 'master_03']
+      constraints: nodes: ['master02', 'master03']
       config:
         openldap_server:
           suffix: 'dc=ryba'
@@ -114,14 +119,14 @@ module.exports =
             mail: 'david@adaltas.com'
             userPassword: 'test'
     'masson/core/openldap_client':
-      constraints: nodes: ['master_03', 'master_02']
+      constraints: nodes: ['master03', 'master02']
       config:  openldap_client:
         certificates: [
           source: "#{__dirname}/certs/cacert.pem", local: true
         ]
         config: {}
     'masson/core/krb5_server':
-      constraints: nodes: ['master_01']
+      constraints: nodes: ['master01']
       config: krb5:
         # database_module: 'openldap_master3'
         etc_krb5_conf:
@@ -148,116 +153,156 @@ module.exports =
           dbmodules:
             'masson_default':
               kdc_master_key: 'test'
-    'masson/core/krb5_client': {}
+    'masson/core/krb5_client':
+      constraints: tags: 'environment': 'dev'
     'masson/commons/java':
       constraints: tags: 'environment': 'dev'
     'masson/commons/mysql/client':
       constraints: tags: 'environment': 'dev'
     'masson/commons/mysql/server':
-      constraints: nodes: ['master_01']
+      constraints: nodes: ['master01']
       config: mysql: server:
         current_password: ''
         password: 'MySQL123-'
         my_conf: {}
     # Ambari
     'ryba/ambari/server':
-      constraints: nodes: ['master_01']
+      constraints: nodes: ['master01']
       config: ryba: ambari_server:
         repo: false
-        cluster_name: 'cluster_01'
+        # cluster_name: 'cluster01'
         admin_password: 'admin123'
         master_key: 'ambariMasterKey123'
-        config:
-          'api.ssl': 'false'
         db:
           engine: 'mysql'
           password: 'Ambari123-'
+        db_hive: 'Hive123-'
+        db_oozie: 'Oozie123-'
+        db_ranger: 'Ranger123-'
+        truststore: password: 'AmbariTruststore123-'
+        jaas: principal: 'ambari@HADOOP.RYBA'
+    'ryba/ambari/standalone':
+      constraints: nodes: ['edge01']
+      config: ryba: ambari_standalone:
+        repo: false
+        admin_password: 'admin123'
+        master_key: 'ambariMasterKey123'
+        db:
+          engine: 'mysql'
+          database: 'ambari_views'
+          password: 'Ambari123-'
+        truststore: password: 'AmbariTruststore123-'
+        jaas: principal: 'ambari@HADOOP.RYBA'
     'ryba/ambari/agent':
-      constraints: tags: 'role': 'client'
+      constraints: tags: 'environment': 'dev'
   nodes:
-    'admin_01':
+    'admin01':
       tags:
         'environment': 'dev'
         'role': 'master'
       config:
         ip: '10.10.10.20'
-        host: 'admin_01.ambari.ryba'
+        host: 'admin01.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/admin01_cert.pem"
+          'key': "#{__dirname}/certs/admin01_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/admin_01_cert.pem"
-          'key': "#{__dirname}/certs/admin_01_key.pem"
-    'master_01':
+          'cert': "#{__dirname}/certs/admin01_cert.pem"
+          'key': "#{__dirname}/certs/admin01_key.pem"
+    'master01':
       tags:
         'environment': 'dev'
         'role': 'master'
       config:
         ip: '10.10.10.22'
-        host: 'master_01.ambari.ryba'
+        host: 'master01.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/master01_cert.pem"
+          'key': "#{__dirname}/certs/master01_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/master_01_cert.pem"
-          'key': "#{__dirname}/certs/master_01_key.pem"
-    'master_02':
+          'cert': "#{__dirname}/certs/master01_cert.pem"
+          'key': "#{__dirname}/certs/master01_key.pem"
+    'master02':
       tags:
         'environment': 'dev'
         'role': 'master'
       config:
         ip: '10.10.10.23'
-        host: 'master_02.ambari.ryba'
+        host: 'master02.ambari.ryba'
         openldap_server:
-          tls_cert_file: "#{__dirname}/certs/master_02_cert.pem"
-          tls_key_file: "#{__dirname}/certs/master_02_key.pem"
+          tls_cert_file: "#{__dirname}/certs/master02_cert.pem"
+          tls_key_file: "#{__dirname}/certs/master02_key.pem"
+        ssl:
+          'cert': "#{__dirname}/certs/master02_cert.pem"
+          'key': "#{__dirname}/certs/master02_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/master_02_cert.pem"
-          'key': "#{__dirname}/certs/master_02_key.pem"
-    'master_03':
+          'cert': "#{__dirname}/certs/master02_cert.pem"
+          'key': "#{__dirname}/certs/master02_key.pem"
+    'master03':
       tags:
         'environment': 'dev'
         'role': 'master'
       config:
         ip: '10.10.10.24'
-        host: 'master_03.ambari.ryba'
+        host: 'master03.ambari.ryba'
         openldap_server:
-          tls_cert_file: "#{__dirname}/certs/master_03_cert.pem"
-          tls_key_file: "#{__dirname}/certs/master_03_key.pem"
+          tls_cert_file: "#{__dirname}/certs/master03_cert.pem"
+          tls_key_file: "#{__dirname}/certs/master03_key.pem"
+        ssl:
+          'cert': "#{__dirname}/certs/master03_cert.pem"
+          'key': "#{__dirname}/certs/master03_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/master_03_cert.pem"
-          'key': "#{__dirname}/certs/master_03_key.pem"
-    'edge_01':
+          'cert': "#{__dirname}/certs/master03_cert.pem"
+          'key': "#{__dirname}/certs/master03_key.pem"
+    'edge01':
       tags:
         'environment': 'dev'
         'role': 'client'
       config:
         ip: '10.10.10.25'
-        host: 'edge_01.ambari.ryba'
+        host: 'edge01.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/edge01_cert.pem"
+          'key': "#{__dirname}/certs/edge01_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/edge_01_cert.pem"
-          'key': "#{__dirname}/certs/edge_01_key.pem"
-    'worker_01':
+          'cert': "#{__dirname}/certs/edge01_cert.pem"
+          'key': "#{__dirname}/certs/edge01_key.pem"
+    'worker01':
       tags:
         'environment': 'dev'
         'role': 'worker'
       config:
         ip: '10.10.10.27'
-        host: 'worker_01.ambari.ryba'
+        host: 'worker01.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/worker01_cert.pem"
+          'key': "#{__dirname}/certs/worker01_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/worker_01_cert.pem"
-          'key': "#{__dirname}/certs/worker_01_key.pem"
-    'worker_02':
+          'cert': "#{__dirname}/certs/worker01_cert.pem"
+          'key': "#{__dirname}/certs/worker01_key.pem"
+    'worker02':
       tags:
         'environment': 'dev'
         'role': 'worker'
       config:
         ip: '10.10.10.28'
-        host: 'worker_02.ambari.ryba'
+        host: 'worker02.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/worker02_cert.pem"
+          'key': "#{__dirname}/certs/worker02_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/worker_02_cert.pem"
-          'key': "#{__dirname}/certs/worker_02_key.pem"
-    'worker_03':
+          'cert': "#{__dirname}/certs/worker02_cert.pem"
+          'key': "#{__dirname}/certs/worker02_key.pem"
+    'worker03':
       tags:
         'environment': 'dev'
         'role': 'worker'
       config:
         ip: '10.10.10.29'
-        host: 'worker_03.ambari.ryba'
+        host: 'worker03.ambari.ryba'
+        ssl:
+          'cert': "#{__dirname}/certs/worker03_cert.pem"
+          'key': "#{__dirname}/certs/worker03_key.pem"
         ryba: ssl:
-          'cert': "#{__dirname}/certs/worker_03_cert.pem"
-          'key': "#{__dirname}/certs/worker_03_key.pem"
+          'cert': "#{__dirname}/certs/worker03_cert.pem"
+          'key': "#{__dirname}/certs/worker03_key.pem"

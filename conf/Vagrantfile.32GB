@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     config.vbguest.no_remote = true
     config.vbguest.auto_update = false
   end
-  config.vm.define :admin_01 do |node|
+  config.vm.define :admin01 do |node|
     node.vm.box = box
     node.vm.hostname = "admin01.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.20"
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
       d.memory = 4096
     end
   end
-  config.vm.define :master_01 do |node|
+  config.vm.define :master01 do |node|
     node.vm.box = box
     node.vm.hostname = "master01.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.22"
@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
       d.memory = 4096
     end
   end
-  config.vm.define :master_02 do |node|
+  config.vm.define :master02 do |node|
     node.vm.box = box
     node.vm.hostname = "master02.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.23"
@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
       d.memory = 4096
     end
   end
-  config.vm.define :master_03 do |node|
+  config.vm.define :master03 do |node|
     node.vm.box = box
     node.vm.hostname = "master03.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.24"
@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
       d.memory = 2560
     end
   end
-  config.vm.define :edge_01 do |node|
+  config.vm.define :edge01 do |node|
     node.vm.box = box
     node.vm.hostname = "edge01.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.25"
@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
       d.memory = 2560
     end
   end
-  config.vm.define :worker_01 do |node|
+  config.vm.define :worker01 do |node|
     node.vm.box = box
     node.vm.hostname = "worker01.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.27"
@@ -79,7 +79,7 @@ Vagrant.configure("2") do |config|
       d.customize ["modifyvm", :id, "--ioapic", "on"]
     end
   end
-  config.vm.define :worker_02 do |node|
+  config.vm.define :worker02 do |node|
     node.vm.box = box
     node.vm.hostname = "worker02.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.28"
@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
       d.customize ["modifyvm", :id, "--ioapic", "on"]
     end
   end
-  config.vm.define :worker_03 do |node|
+  config.vm.define :worker03 do |node|
     node.vm.box = box
     node.vm.hostname = "worker03.ambari.ryba"
     node.vm.network :private_network, ip: "10.10.10.29"
