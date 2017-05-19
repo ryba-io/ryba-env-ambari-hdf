@@ -114,6 +114,22 @@ module.exports =
           tls_ca_cert_local: true
           tls_cert_local: true
           tls_key_local: true
+          # entries:
+          #   groups:
+          #     "user":
+          #       "gidNumber": "2600"
+          #     "geek":
+          #       "gidNumber": "2601"
+          #       "memberUid": ["2800", "2801"]
+          #   users:
+          #     "toto":
+          #       "uidNumber": "2800",
+          #       "gidNumber": "2600",
+          #       "userPassword": "toto123"
+          #     "lulu":
+          #       "uidNumber": "2801",
+          #       "gidNumber": "2600",
+          #       "userPassword": "lulu123"
         openldap_server_krb5:
           krbadmin_user:
             mail: 'david@adaltas.com'
@@ -195,7 +211,7 @@ module.exports =
           database: 'ambari_views'
           password: 'Ambari123-'
         truststore: password: 'AmbariTruststore123-'
-        jaas: principal: 'ambari@HADOOP.RYBA'
+        jaas: principal: 'ambari/_HOST@HADOOP.RYBA'
     'ryba/ambari/agent':
       constraints: tags: 'environment': 'dev'
   nodes:
