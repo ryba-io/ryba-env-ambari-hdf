@@ -211,7 +211,9 @@ module.exports =
           database: 'ambari_views'
           password: 'Ambari123-'
         truststore: password: 'AmbariTruststore123-'
-        jaas: principal: 'ambari/_HOST@HADOOP.RYBA'
+        jaas:
+          enabled: true
+          principal: 'ambari/_HOST@HADOOP.RYBA'
     'ryba/ambari/agent':
       constraints: tags: 'environment': 'dev'
   nodes:
