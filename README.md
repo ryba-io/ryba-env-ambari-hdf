@@ -34,14 +34,9 @@ Detailed information are available on the [official website](http://ryba.io).
 ## URLs
 
 * Ambari Operational
-  https://master01.ambari.ryba:8443
-* Hadoop HDFS NN (krb UI)
-  https://master1.ryba:50470 (active)
-  https://master2.ryba:50470 (passive)
-* Hadoop YARN RM (krb UI)
-  https://master1.ryba:8090/cluster/apps
-* Hadoop YARN TS (krb rest)
-  https://master3.ryba:8190/ws/v1/timeline/
+  https://hdfadmin01.ambari.ryba:8442
+* Nifi
+  https://collect01.ambari.ryba:9091/nifi
 
 ## Prepare your host
 
@@ -50,16 +45,11 @@ Register DNS
 ```bash
 sudo tee -a /etc/hosts << HOSTS
 # Ryba Env Ambari
-10.10.10.20   admin01.ambari.ryba
-10.10.10.21   admin02.ambari.ryba
-10.10.10.22   master01.ambari.ryba
-10.10.10.23   master02.ambari.ryba
-10.10.10.24   master03.ambari.ryba
-10.10.10.25   edge01.ambari.ryba
-10.10.10.26   edge02.ambari.ryba
-10.10.10.27   worker01.ambari.ryba
-10.10.10.28   worker02.ambari.ryba
-10.10.10.29   worker03.ambari.ryba
+10.10.10.20   hdfadmin01.ambari.ryba
+10.10.10.21   hdfadmin02.ambari.ryba
+10.10.10.27   collect01.ambari.ryba
+10.10.10.28   collect02.ambari.ryba
+10.10.10.29   collect03.ambari.ryba
 HOSTS
 ```
 
@@ -93,24 +83,22 @@ Select Version
 Install Options
 
 * Target Hosts
-  admin[01-01].ambari.ryba
-  master[01-03].ambari.ryba
-  edge[01-01].ambari.ryba
-  worker[01-03].ambari.ryba
+  hdfadmin[01-01].ambari.ryba
+  collect[01-03].ambari.ryba
 * Check "Perform manual registration on hosts and do not use SSH"
 
 Assign Masters
 
 * admin01.ambari.ryba (3.7 GB, 1 cores)
-  Infra Solr Instance, Metrics Collector, Grafana, Atlas Metadata Server, Activity Explorer, HST Server, Activity Analyzer
+  Infra Solr Instance, Grafana, Metrics Collector, Log Search Server
 * edge01.ambari.ryba (2.3 GB, 1 cores)
-  WebHCat Server, HiveServer2, Storm UI Server, Knox Gateway, Spark History Server, Zeppelin Notebook
+  TODO
 * master01.ambari.ryba (3.7 GB, 1 cores)
-  NameNode, HBase Master, ZooKeeper Server, Kafka Broker
+  ZooKeeper Server, Kafka Broker, NiFi
 * master02.ambari.ryba (3.7 GB, 1 cores)
-  SNameNode, Oozie Server, ZooKeeper Server, Falcon Server, Nimbus, DRPC Server, Kafka Broker
+  ZooKeeper Server, Kafka Broker, NiFi
 * master03.ambari.ryba (2.3 GB, 1 cores)
-  App Timeline Server, History Server, ResourceManager, Hive Metastore, HBase Master, ZooKeeper Server, Kafka Broker
+  ZooKeeper Server, Kafka Broker, NiFi
 
 Assign Slaves and Clients
 
@@ -120,19 +108,16 @@ Assign Slaves and Clients
 Customize Services
 
 * ZooKeeper > ZooKeeper directory: /data/zookeeper
-* HDFS > NameNode directories: /data/hdfs/namenode
-* HDFS > SecondaryNameNode Checkpoint directories: /data/hdfs/secondaynamenode
-* HDFS > DataNode directories: /data/hadoop_1/hdfs/data,/data/2/hadoop_1/data
-* YARN > Advanced > Node Manager > yarn.nodemanager.local-dirs: /data/hadoop_1/yarn/local,/data/hadoop_2/yarn/local
-* YARN > Advanced > Node Manager > yarn.nodemanager.log-dirs: /data/hadoop_1/yarn/log,/data/hadoop_2/yarn/log
-* Hive > Advanced > Check "Existing MySQL / MariaDB Database"
-* Hive > Advanced > Database Password: Hive123-
-* Hive > Advanced > Database URL: "jdbc:mysql://master01.ambari.ryba/oozie
-* Oozie > Advanced > Check "Existing MySQL / MariaDB Database"
-* Oozie > Advanced > Database Password: Oozie123-
-* Oozie > Advanced > Database URL: "jdbc:mysql://master01.ambari.ryba/oozie"
 * Ambari Infra > Settings > Infra Solr data dir: "/data/solr"
-* Ambari Metrics > Grafana Admin Password: "graphana123"
+* Ambari Metrics > Grafana Admin Password: "Graphana123-"
 * Kafka > Kafka Broker > log.dirs: /data/kafka_1,/data/kafka_2
-* Knox > Knox Gateway > Knox Master Secret: "knox123"
-* SmartSense > Activity Analysis >  Password for user 'admin': 'sense123'
+* Knox > Knox Gateway > Knox Master Secret: "Knox123-"
+* SmartSense > Activity Analysis >  Password for user 'admin': 'Sense123-'
+* Log Search > Advanced logsearch-admin-json > Admin Password: "LogSearch123-"
+* Nifi > Nifi content repository default dir: "/data/nifi/content_repository"
+* Nifi > Nifi H2 database dir: "/data/nifi/database_repository"
+* Nifi > Nifi flowfile repository dir: "/data/nifi/flowfile_repository"
+* Nifi > Nifi internal dir: "/data/nifi"
+* Nifi > Nifi provenance repository default dir: "/data/nifi/provenance_repository"
+* Nifi > Encrypt Configuration Master Key Password: "NifiMasterKey123-"
+* Nifi > Sensitive property values encryption password: "NifiCrypt123"
