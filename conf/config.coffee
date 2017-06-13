@@ -145,31 +145,17 @@ module.exports =
         config: {}
     'masson/core/krb5_server':
       constraints: nodes: ['collect01']
-      config: krb5:
-        # database_module: 'openldap_master3'
-        etc_krb5_conf:
-          libdefaults:
-            default_realm: 'HDF.HADOOP.RYBA'
-          realms:
-            'HDF.HADOOP.RYBA': {}
-          domain_realm:
-            '.ambari.ryba': 'HDF.HADOOP.RYBA'
-            'ambari.ryba': 'HDF.HADOOP.RYBA'
-          realms:
-            'HDF.HADOOP.RYBA':
-              kadmin_principal: 'admin/admin@HDF.HADOOP.RYBA'
-              kadmin_password: 'test'
-              principals: [
-                principal: 'nifiadmin@HDF.HADOOP.RYBA'
-                password: 'nifi123'
-              ]
-        kdc_conf:
-          realms:
-            'HDF.HADOOP.RYBA':
-              database_module: 'masson_default'
-          dbmodules:
-            'masson_default':
-              kdc_master_key: 'test'
+      config: krb5_server:
+        admin:
+          'HDF.HADOOP.RYBA':
+            kadmin_principal: 'admin/admin@HDF.HADOOP.RYBA'
+            kadmin_password: 'test'
+            database_module: 'hadoop_ryba_db'
+            kdc_master_key: 'test'
+            principals: [
+              principal: 'nifiadmin@HDF.HADOOP.RYBA'
+              password: 'nifi123'
+            ]
     'masson/core/krb5_client':
       constraints: tags: 'environment': 'dev'
     # 'masson/core/sssd':
