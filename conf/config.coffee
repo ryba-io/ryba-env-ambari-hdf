@@ -122,7 +122,7 @@ module.exports =
                 "gidNumber": "2600"
               "geek":
                 "gidNumber": "2601"
-                "memberUid": ["2800", "2801"]
+                "memberUid": ["2800", "2801", "2802"]
             users:
               "toto":
                 "uidNumber": "2800",
@@ -132,6 +132,10 @@ module.exports =
                 "uidNumber": "2801",
                 "gidNumber": "2600",
                 "userPassword": "lulu123"
+              "nifiadmin":
+                "uidNumber": "2802",
+                "gidNumber": "2600",
+                "userPassword": "nifi123"
         openldap_server_krb5:
           krbadmin_user:
             mail: 'david@adaltas.com'

@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* nifi: admin user
 * vagrant: remove hostname
 * krb5: migrate configuration
 * certs: regerate all certifcates after re-ordering
