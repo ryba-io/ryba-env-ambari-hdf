@@ -71,7 +71,21 @@ alias ambari_worker03='ssh root@worker03.ambari.ryba'
 ALIASES
 ```
 
-Install the Kerbeors client configuration
+Install the Kerberos client configuration
+
+```bash
+cp -rp /etc/krb5.conf /etc/krb5.conf.bck
+sudo tee /etc/krb5.conf << KRB5
+[libdefaults]
+ default_realm = HADOOP.RYBA
+[realms]
+ HDF.HADOOP.RYBA = {
+  kdc = collect01.ambari.ryba
+  admin_server = collect01.ambari.ryba
+  default_domain = ambari.ryba
+ }
+KRB5
+```
 
 ## Ambari Installation
 
@@ -111,13 +125,10 @@ Customize Services
 * Ambari Infra > Settings > Infra Solr data dir: "/data/solr"
 * Ambari Metrics > Grafana Admin Password: "Graphana123-"
 * Kafka > Kafka Broker > log.dirs: /data/kafka_1,/data/kafka_2
-* Knox > Knox Gateway > Knox Master Secret: "Knox123-"
-* SmartSense > Activity Analysis >  Password for user 'admin': 'Sense123-'
 * Log Search > Advanced logsearch-admin-json > Admin Password: "LogSearch123-"
 * Nifi > Nifi content repository default dir: "/data/nifi/content_repository"
 * Nifi > Nifi H2 database dir: "/data/nifi/database_repository"
 * Nifi > Nifi flowfile repository dir: "/data/nifi/flowfile_repository"
-* Nifi > Nifi internal dir: "/data/nifi"
 * Nifi > Nifi provenance repository default dir: "/data/nifi/provenance_repository"
 * Nifi > Encrypt Configuration Master Key Password: "NifiMasterKey123-"
 * Nifi > Sensitive property values encryption password: "NifiCrypt123"

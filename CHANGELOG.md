@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* hdf: dedicated module for ambari, nifi & ranger
 * nifi: admin user
 * vagrant: remove hostname
 * krb5: migrate configuration

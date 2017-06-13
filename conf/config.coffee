@@ -194,9 +194,9 @@ module.exports =
         password: 'MySQL123-'
         my_conf: {}
     # Ambari
-    'ryba/ambari/server':
+    'ryba/ambari/hdfserver':
       constraints: nodes: ['hdfadmin01']
-      config: ryba: ambari_server:
+      config: ryba: ambari_hdfserver:
         repo: false
         admin_password: 'admin123'
         master_key: 'ambariMasterKey123'
@@ -205,29 +205,31 @@ module.exports =
         db:
           engine: 'mysql'
           password: 'Ambari123-'
-        db_hive: 'Hive123-'
-        db_oozie: 'Oozie123-'
-        db_ranger: 'Ranger123-'
         truststore: password: 'AmbariTruststore123-'
-        jaas: principal: 'ambari@HDF.HADOOP.RYBA'
-    'ryba/ambari/agent':
+        db_ranger: 'Ranger123-'
+        # jaas: principal: 'ambari@HDF.HADOOP.RYBA'
+    'ryba/ambari/hdfagent':
       constraints: tags: 'environment': 'dev'
-      config: ryba: ambari_agent: nifi:
-        enabled: true
-        truststore:
-          password: 'NifiTruststore123-'
-        keystore:
-          password: 'NifiKeystore123-'
-          keypass: 'NifiKeystore123-'
     'ryba/ambari/nifi':
       constraints: tags: 'environment': 'dev'
       config: ambari_nifi:
-        enabled: true
-        truststore:
-          password: 'NifiTruststore123-'
-        keystore:
-          password: 'NifiKeystore123-'
-          keypass: 'NifiKeystore123-'
+        ssl:
+          enabled: true
+          truststore:
+            password: 'NifiTruststore123-'
+          keystore:
+            password: 'NifiKeystore123-'
+            keypass: 'NifiKeystore123-'
+    'ryba/ambari/hdfranger':
+      constraints: tags: 'environment': 'dev'
+      config: ambari_hdfranger:
+        ssl:
+          enabled: true
+          truststore:
+            password: 'HDFRangerTruststore123-'
+          keystore:
+            password: 'HDFRangerKeystore123-'
+            keypass: 'HDFRangerKeystore123-'
   nodes:
     'hdfadmin01':
       tags:
