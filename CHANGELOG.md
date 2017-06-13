@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* vagrant: remove hostname
 * krb5: migrate configuration
 * certs: regerate all certifcates after re-ordering
 * ambari: enable jaas
