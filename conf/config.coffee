@@ -208,6 +208,14 @@ module.exports =
         truststore: password: 'AmbariTruststore123-'
         db_ranger: 'Ranger123-'
         # jaas: principal: 'ambari@HDF.HADOOP.RYBA'
+    'ryba/hdf':
+      constraints: tags: 'environment': 'dev'
+      config: ryba: hdf:
+        source: 'http://public-repo-1.hortonworks.com/HDF/centos7/2.x/updates/2.1.2.0/hdf.repo'
+    'ryba/ambari/hdfrepo':
+      constraints: tags: 'environment': 'dev'
+      config: ryba: ambari: hdfrepo:
+        source: 'http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.4.2.0'
     'ryba/ambari/hdfagent':
       constraints: tags: 'environment': 'dev'
     'ryba/ambari/nifi':
