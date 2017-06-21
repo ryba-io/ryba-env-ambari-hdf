@@ -205,8 +205,12 @@ module.exports =
         db:
           engine: 'mysql'
           password: 'Ambari123-'
+        db_ranger:
+          engine: 'mysql'
+          database: 'hdf_ranger'
+          username: 'hdf_ranger'
+          password: 'Ranger123-'
         truststore: password: 'AmbariTruststore123-'
-        db_ranger: 'Ranger123-'
         # jaas: principal: 'ambari@HDF.HADOOP.RYBA'
     'ryba/hdf':
       constraints: tags: 'environment': 'dev'
