@@ -33,7 +33,7 @@ module.exports =
           source: "#{__dirname}/offline/mysql.repo"
     'ryba/hdf':
       config: ryba: hdf:
-        source: "#{__dirname}/offline/hdf.repo"
+        source: "#{__dirname}/offline/hdf-2.1.2.0.repo"
     'ryba/ambari/hdfrepo':
       config: ryba: ambari: hdfrepo:
-        source: "#{__dirname}/offline/ambari.repo"
+        source: "#{__dirname}/offline/ambari-2.4.2.0.repo"

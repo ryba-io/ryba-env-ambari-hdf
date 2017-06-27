@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* repo: hdf and hdp definitions
 * hdf: dedicated module for ambari, nifi & ranger
 * nifi: admin user
 * vagrant: remove hostname
