@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* krb5: activate ha
 * repo: hdf and hdp definitions
 * hdf: dedicated module for ambari, nifi & ranger
 * nifi: admin user

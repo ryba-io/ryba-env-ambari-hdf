@@ -141,14 +141,14 @@ module.exports =
             mail: 'david@adaltas.com'
             userPassword: 'test'
     'masson/core/openldap_client':
-      constraints: nodes: ['collect01', 'collect02']
+      constraints: tags: 'environment': 'dev'
       config:  openldap_client:
         certificates: [
           source: "#{__dirname}/certs/cacert.pem", local: true
         ]
         config: {}
     'masson/core/krb5_server':
-      constraints: nodes: ['collect01']
+      constraints: nodes: ['collect01', 'collect02']
       config: krb5_server:
         admin:
           'HDF.HADOOP.RYBA':
@@ -279,6 +279,10 @@ module.exports =
         openldap_server:
           tls_cert_file: "#{__dirname}/certs/collect02_cert.pem"
           tls_key_file: "#{__dirname}/certs/collect02_key.pem"
+        krb5_server:
+          admin:
+            'HDF.HADOOP.RYBA':
+              master: true
     'collect03':
       tags:
         'environment': 'dev'
