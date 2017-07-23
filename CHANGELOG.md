@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* yum: remove clean option
 * ssl: rename certificates
 * ssh: move from global to nikita
 * krb5: activate ha
