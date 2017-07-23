@@ -82,7 +82,7 @@ module.exports =
       constraints: tags: 'environment': 'dev'
       config: ssl:
         cacert:
-          source: "#{__dirname}/certs/cacert.pem"
+          source: "#{__dirname}/certs/ca.cert.pem"
           local: true
         truststore:
           password: 'Truststore123-'
@@ -112,7 +112,7 @@ module.exports =
           ldapdelete: []
           ldapadd: []
           tls: true
-          tls_ca_cert_file: "#{__dirname}/certs/cacert.pem"
+          tls_ca_cert_file: "#{__dirname}/certs/ca.cert.pem"
           tls_ca_cert_local: true
           tls_cert_local: true
           tls_key_local: true
@@ -144,7 +144,7 @@ module.exports =
       constraints: tags: 'environment': 'dev'
       config:  openldap_client:
         certificates: [
-          source: "#{__dirname}/certs/cacert.pem", local: true
+          source: "#{__dirname}/certs/ca.cert.pem", local: true
         ]
         config: {}
     'masson/core/krb5_server':
@@ -251,8 +251,8 @@ module.exports =
         ip: '10.10.10.30'
         host: 'hdfadmin01.ambari.ryba'
         ssl:
-          'cert': source: "#{__dirname}/certs/hdfadmin01_cert.pem", local: true
-          'key': source: "#{__dirname}/certs/hdfadmin01_key.pem", local: true
+          'cert': source: "#{__dirname}/certs/hdfadmin01.cert.pem", local: true
+          'key': source: "#{__dirname}/certs/hdfadmin01.key.pem", local: true
     'collect01':
       tags:
         'environment': 'dev'
@@ -261,11 +261,11 @@ module.exports =
         ip: '10.10.10.32'
         host: 'collect01.ambari.ryba'
         ssl:
-          'cert': source: "#{__dirname}/certs/collect01_cert.pem", local: true
-          'key': source: "#{__dirname}/certs/collect01_key.pem", local: true
+          'cert': source: "#{__dirname}/certs/collect01.cert.pem", local: true
+          'key': source: "#{__dirname}/certs/collect01.key.pem", local: true
         openldap_server:
-          tls_cert_file: "#{__dirname}/certs/collect01_cert.pem"
-          tls_key_file: "#{__dirname}/certs/collect01_key.pem"
+          tls_cert_file: "#{__dirname}/certs/collect01.cert.pem"
+          tls_key_file: "#{__dirname}/certs/collect01.key.pem"
     'collect02':
       tags:
         'environment': 'dev'
@@ -274,11 +274,11 @@ module.exports =
         ip: '10.10.10.33'
         host: 'collect02.ambari.ryba'
         ssl:
-          'cert': source: "#{__dirname}/certs/collect02_cert.pem", local: true
-          'key': source: "#{__dirname}/certs/collect02_key.pem", local: true
+          'cert': source: "#{__dirname}/certs/collect02.cert.pem", local: true
+          'key': source: "#{__dirname}/certs/collect02.key.pem", local: true
         openldap_server:
-          tls_cert_file: "#{__dirname}/certs/collect02_cert.pem"
-          tls_key_file: "#{__dirname}/certs/collect02_key.pem"
+          tls_cert_file: "#{__dirname}/certs/collect02.cert.pem"
+          tls_key_file: "#{__dirname}/certs/collect02.key.pem"
         krb5_server:
           admin:
             'HDF.HADOOP.RYBA':
@@ -291,5 +291,5 @@ module.exports =
         ip: '10.10.10.34'
         host: 'collect03.ambari.ryba'
         ssl:
-          'cert': source: "#{__dirname}/certs/collect03_cert.pem", local: true
-          'key': source: "#{__dirname}/certs/collect03_key.pem", local: true
+          'cert': source: "#{__dirname}/certs/collect03.cert.pem", local: true
+          'key': source: "#{__dirname}/certs/collect03.key.pem", local: true
