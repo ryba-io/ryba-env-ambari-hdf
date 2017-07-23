@@ -1,12 +1,5 @@
 
 module.exports = 
-  # config:
-  #   proxy: null
-  #   curl:
-  #     check: false
-  #     config: noproxy: ['localhost', '127.0.0.1', '.ryba']
-  #   profile:
-  #     'proxy.sh': "" # Created by Vagrant proxy plugin
   services:
     'masson/core/yum':
       config: yum:
