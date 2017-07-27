@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* vagrant: disable box check update
 * yum: remove clean option
 * ssl: rename certificates
 * ssh: move from global to nikita
