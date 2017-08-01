@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* openldap: unify krb5 into one configuration
 * run: remove global configuration
 * vagrant: disable box check update
 * yum: remove clean option
