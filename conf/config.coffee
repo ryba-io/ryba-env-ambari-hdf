@@ -93,7 +93,7 @@ module.exports =
       config: iptables:
         action: 'stop'
         startup: false
-        log: true
+        redirect_log: true
         rules: [
           # { chain: 'INPUT', jump: 'ACCEPT', source: "10.10.10.0/24", comment: 'Local Network' }
         ]
@@ -189,12 +189,12 @@ module.exports =
       constraints: nodes: ['collect01']
       config: mysql: server:
         current_password: ''
-        password: 'MySQL123-'
+        admin_password: 'MySQL123-'
         my_conf: {}
     # Ambari
     'ryba/ambari/hdfserver':
       constraints: nodes: ['hdfadmin01']
-      config: ryba: ambari_hdfserver:
+      config: ryba: ambari: hdfserver:
         repo: false
         admin_password: 'admin123'
         master_key: 'ambariMasterKey123'
@@ -222,7 +222,7 @@ module.exports =
       constraints: tags: 'environment': 'dev'
     'ryba/ambari/nifi':
       constraints: tags: 'environment': 'dev'
-      config: ambari_nifi:
+      config: ryba: ambari: nifi:
         ssl:
           enabled: true
           truststore:
@@ -232,7 +232,7 @@ module.exports =
             keypass: 'NifiKeystore123-'
     'ryba/ambari/hdfranger':
       constraints: tags: 'environment': 'dev'
-      config: ambari_hdfranger:
+      config: ryba: ambari: hdfranger:
         ssl:
           enabled: true
           truststore:
